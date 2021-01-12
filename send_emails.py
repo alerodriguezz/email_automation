@@ -21,6 +21,10 @@ recipient_name= "Sterling"
 email_text='''
 Hello there. Again.
 '''
+
+#a loop can be incorporated into this def to broadcast to a larger audience
+# e.g for name, email in zip(name_list, email_list)....
+
 def send_email():
     print("Sending email...\n")
 
