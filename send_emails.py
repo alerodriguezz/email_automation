@@ -18,8 +18,9 @@ recipient_name= "Sterling"
 
 #email context
 
-email_text='''
-Hello there. Again.
+email_html='''
+<h1> Hello, Customer</h1>
+<p>Thank you for you purchase</p>
 '''
 
 #a loop can be incorporated into this def to broadcast to a larger audience
@@ -28,12 +29,15 @@ Hello there. Again.
 def send_email():
     print("Sending email...\n")
 
-    message = MIMEText(email_text)
+    message = MIMEText(email_html, 'html')
+    #message.add_header('Content-Type','text/html')
+
+    print (message)
     
     #Populate message object with data
     message['To'] = email.utils.formataddr((recipient_name,recipient_email))
     message['From'] = email.utils.formataddr((sender_name,sender_email))
-    message['Subject'] = "Test email"
+    message['Subject'] = "New email with html functionality"
     #setup email server, email host , and common used port 
     server = smtplib.SMTP('smtp.gmail.com',587)
     
