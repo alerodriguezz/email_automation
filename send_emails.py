@@ -3,17 +3,21 @@
 import smtplib
 import os
 import email.utils
+import dotenv
 from email.mime.text import MIMEText
+from dotenv import load_dotenv
+
+load_dotenv()
 
 #which email is this being sent from?
-sender_email = str(os.environ.get('SENDER_EMAIL'))
+sender_email = str(os.getenv('SENDER_EMAIL'))
 sender_name = "John"
 
 #pass for sender's account 
-password = str(os.environ.get('PASSWORD'))
+password = str(os.getenv('PASSWORD'))
 
 #who is this mail going to be sent to 
-recipient_email='alex4dodgers@yahoo.com'
+recipient_email=str(os.getenv('RECIPIENT_EMAIL'))
 recipient_name= "Sterling"
 
 #email context
