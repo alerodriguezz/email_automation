@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
 import smtplib
-import os
+import os,sys
 import email.utils
 import dotenv
 from email.mime.text import MIMEText
 from dotenv import load_dotenv
 
+#load variables set in your .env file
 load_dotenv()
 
 #which email is this being sent from?
@@ -15,17 +16,33 @@ sender_name = "John"
 
 #pass for sender's account 
 password = str(os.getenv('PASSWORD'))
+"""
+emails=[]
+names=[]
+#retreive email list 
+with open(os.path.join(sys.path[0], "Email_List.csv"), "r") as f:
+    temp = f.readlines()[1:]
+
+    for i in temp:
+        names.append(i.split()[0] + " " + i.split()[1])
+        emails.append(i.split()[2])
+        
+    f.close()
+
+email_list=list(zip(names,emails))
+"""
 
 #who is this mail going to be sent to 
 recipient_email=str(os.getenv('RECIPIENT_EMAIL'))
 recipient_name= "Sterling"
 
-#email context
+#retreive email content
 
-email_html='''
-<h1> Hello, Customer</h1>
-<p>Thank you for you purchase</p>
-'''
+email_html=""
+with open(os.path.join(sys.path[0], "Email_Contents.html"), "r") as f:
+    temp = f.read()
+    email_html += temp
+    f.close()
 
 #a loop can be incorporated into this def to broadcast to a larger audience
 # e.g for name, email in zip(name_list, email_list)....
@@ -35,8 +52,6 @@ def send_email():
 
     message = MIMEText(email_html, 'html')
     #message.add_header('Content-Type','text/html')
-
-    print (message)
     
     #Populate message object with data
     message['To'] = email.utils.formataddr((recipient_name,recipient_email))
